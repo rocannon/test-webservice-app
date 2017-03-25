@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://localhost/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://localhost/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://localhost/">
+      <s:element name="GetSettings">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchField" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSettingsResult" type="tns:ArrayOfSetting" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSetting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Setting" nillable="true" type="tns:Setting" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Setting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSettingsWithoutParams">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSettingsWithoutParamsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSettingsWithoutParamsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSettingsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSettings" />
+  </wsdl:message>
+  <wsdl:message name="GetSettingsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSettingsWithoutParamsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSettingsWithoutParams" />
+  </wsdl:message>
+  <wsdl:message name="GetSettingsWithoutParamsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSettingsWithoutParamsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="GetSettings">
+      <wsdl:input message="tns:GetSettingsSoapIn" />
+      <wsdl:output message="tns:GetSettingsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettings">
+      <wsdl:input name="GetSettingsWithoutParams" message="tns:GetSettingsWithoutParamsSoapIn" />
+      <wsdl:output name="GetSettingsWithoutParams" message="tns:GetSettingsWithoutParamsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSettings">
+      <soap:operation soapAction="http://localhost/GetSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettings">
+      <soap:operation soapAction="http://localhost/GetSettingsWithoutParams" style="document" />
+      <wsdl:input name="GetSettingsWithoutParams">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetSettingsWithoutParams">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSettings">
+      <soap12:operation soapAction="http://localhost/GetSettings" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettings">
+      <soap12:operation soapAction="http://localhost/GetSettingsWithoutParams" style="document" />
+      <wsdl:input name="GetSettingsWithoutParams">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetSettingsWithoutParams">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://localhost:57526/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://localhost:57526/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
